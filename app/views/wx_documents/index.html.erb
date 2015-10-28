@@ -1,0 +1,28 @@
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th><%=h WxDocument, :title %></th>
+      <th><%=h WxDocument, :sourcename %></th>
+      <th><%=h WxDocument, :date %></th>
+      <th><%=h WxDocument, :pagesize %></th>
+      <th><%=h WxDocument, :read_num %></th>
+      <th><%=h WxDocument, :like_num %></th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @docs.each do |doc| %>
+    <tr>
+      <td><%= doc.title %></td>
+      <td><%= doc.sourcename %></td>
+      <td><%= doc.date %></td>
+      <td><%= doc.pagesize %></td>
+      <td><%= doc.read_num %></td>
+      <td><%= doc.like_num %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<div class="table-pagination">
+  <%= paginate(@docs) %>
+</div>

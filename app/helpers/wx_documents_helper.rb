@@ -1,0 +1,2 @@
+module WxDocumentsHelper
+end

@@ -1,0 +1,12 @@
+zh-CN:
+  activerecord:
+    models:
+      wx_document: 微信文章
+    attributes:
+      wx_document:
+        title: 标题
+        sourcename: 发布者
+        date: 发布时间
+        pagesize: 页面大小
+        read_num: 阅读数
+        like_num: 点赞数
