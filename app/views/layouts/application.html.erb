@@ -23,6 +23,10 @@
             <%= link_to wx_documents_path do %><i class="fa fa-download fa-fw"></i> 微信数据 <% end %>
           <% end %>
 
+          <%= n.li_tag :web_page do %>
+            <%= link_to web_pages_path do %><i class="fa fa-download fa-fw"></i> 网媒数据 <% end %>
+          <% end %>
+
           <%= n.li_tag :bd_document do %>
             <%= link_to bd_documents_path do %><i class="fa fa-download fa-fw"></i> 搜索引擎数据 <% end %>
           <% end %>

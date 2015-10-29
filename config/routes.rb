@@ -6,6 +6,8 @@ Rails.application.routes.draw do
     get 'search', on: :collection
   end
 
+  resources :web_pages
+
   root to:  "wx_documents#index"
 
 end

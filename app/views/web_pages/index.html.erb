@@ -1,0 +1,22 @@
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th><%=h WebPage, :text %></th>
+      <th><%=h WebPage, :typ %></th>
+      <th><%=h WebPage, :fetchTime %></th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @pages.each do |page| %>
+    <tr>
+      <td><%= page.text.truncate 50 %></td>
+      <td><%= page.typ %></td>
+      <td><%= Time.at page.fetchTime/1000 %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<div class="table-pagination">
+  <%= paginate(@pages) %>
+</div>

@@ -2,6 +2,7 @@ zh-CN:
   activerecord:
     models:
       wx_document: 微信文章
+      web_page: 网媒内容
     attributes:
       wx_document:
         title: 标题
@@ -10,3 +11,8 @@ zh-CN:
         pagesize: 页面大小
         read_num: 阅读数
         like_num: 点赞数
+      web_page:
+        title: 标题
+        text: 内容
+        typ: 类型
+        fetchTime: 发布时间
