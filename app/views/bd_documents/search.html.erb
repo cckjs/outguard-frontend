@@ -9,7 +9,7 @@
   <tbody>
   <% @results["search_content"].each do |doc| %>
     <tr>
-      <td><%= doc["title"] %></td>
+      <td><%= link_to doc["title"], doc["url"],target: "_blank" %></td>
       <td><%= doc["keyword"] %></td>
       <td><%= doc["crawl_at"] %></td>
     </tr>
