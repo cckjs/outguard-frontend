@@ -1,57 +1,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>新华社采集展现系统</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <title>WXOA</title>
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
 </head>
 <body>
 
-<% unless content_for?(:skip_navbar) %>
- <nav class="navbar navbar-inverse" role="navigation">
-    <div class="container-fluid">
-      <!-- Brand and toggle get grouped for better mobile display -->
-      <div class="navbar-header">
-         <%= link_to "新华社采集展现系统", "#", class: "navbar-brand" %>
-      </div>
+<%= yield %>
 
-      <div class="collapse navbar-collapse">
-        <%= fume_nav @navbar do |n| %>
-        <ul class="nav navbar-nav">
-          <%= n.li_tag :wx_document do %>
-            <%= link_to wx_documents_path do %><i class="fa fa-download fa-fw"></i> 微信数据 <% end %>
-          <% end %>
-
-          <%= n.li_tag :web_page do %>
-            <%= link_to web_pages_path do %><i class="fa fa-download fa-fw"></i> 网媒数据 <% end %>
-          <% end %>
-
-          <%= n.li_tag :bd_document do %>
-            <%= link_to bd_documents_path do %><i class="fa fa-download fa-fw"></i> 搜索引擎数据 <% end %>
-          <% end %>
-
-        </ul>
-        <% end %>
-
-      </div><!-- /.collapse navbar-collapse -->
-    </div><!-- /.container-fluid -->
-  </nav>
-<% end %>
-
-<div class="container">
-  <% flash.each do |type, message| %>
-    <div class="alert <%= bootstrap_alert(type) %> fade in">
-      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-      <%= message %>
-    </div>
-  <% end %>
-
-  <%= yield %>
-
-  <footer>
-  </footer>
-</div>
-
+<script>
+    angular.bootstrap(document, ['app']);
+</script>
 </body>
 </html>

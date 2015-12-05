@@ -10,8 +10,28 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require bootstrap
 //= require jquery
 //= require jquery-ujs
 //= require turbolinks
+//= require bootstrap
+//= require angular
+//= require angular-route
+//= require angular-resource
+//= require angular-cookies
+//= require angular-sanitize
+//= require angular-animate
+//= require angular-aria
+//= require angular-messages
+//= require angular-moment
+//= require angular-upload
+//= require angular-ckeditor
+//= require angular-checklist-model
+//= require angular-chart
+//= require ui-router
+//= require d3
+//= require c3
+//= require moment
+//= require angular-paginate-anything
+//= require ng-rails-csrf
+//= require angular-bootstrap
 //= require_tree .
