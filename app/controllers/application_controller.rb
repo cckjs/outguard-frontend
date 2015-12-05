@@ -1,8 +1,10 @@
 require "application_responder"
 
 class ApplicationController < ActionController::Base
-  protect_from_forgery with: :exception
+  self.responder = ApplicationResponder
   respond_to :html, :json
+
+  protect_from_forgery with: :exception
 
 protected
   def h(model_class, attribute = nil)
