@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :url_weight_rules
   resources :wx_documents
 
   resources :bd_documents do
@@ -8,8 +9,12 @@ Rails.application.routes.draw do
 
   resources :web_pages
 
-  resources :apps, only: :index
+  resources :apps do
+    get 'docs', on: :collection
+    get 'my_docs', on: :collection
+    get 'add_my_doc', on: :collection
+  end
 
-  root to:  "wx_documents#index"
+  root to: "apps#index"
 
 end

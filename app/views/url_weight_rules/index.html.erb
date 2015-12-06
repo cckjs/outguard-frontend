@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<table class="table table-hover table-vcenter">
+  <thead>
+  <tr>
+    <th>Url</th>
+    <th>权重</th>
+    <th>来源</th>
+    <th>频道</th>
+    <th colspan="3">操作</th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @url_weight_rules.each do |url_weight_rule| %>
+      <tr>
+        <td><%= url_weight_rule.url %></td>
+        <td><%= url_weight_rule.weight %></td>
+        <td><%= url_weight_rule.source %></td>
+        <td><%= url_weight_rule.channel %></td>
+        <td><%= link_to '修改', edit_url_weight_rule_path(url_weight_rule) %></td>
+        <td><%= link_to '删除', url_weight_rule, method: :delete, data: {confirm: 'Are you sure?'} %></td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to '新增', new_url_weight_rule_path, class: 'btn btn-default btn-active-purple active' %>

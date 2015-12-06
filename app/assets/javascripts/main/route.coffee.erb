@@ -1,0 +1,10 @@
+angular.module 'main.route', []
+.config(['$stateProvider', ($stateProvider)->
+            $stateProvider.state 'main',
+                url: '/main'
+                templateUrl: '<%=asset_path('templates/main/index.html')%>'
+                controller: 'main.indexController'
+                ncyBreadcrumb :
+                    label :'热点爆文'
+                    parent:'hot_docs'
+            ])

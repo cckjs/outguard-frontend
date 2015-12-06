@@ -1,0 +1,280 @@
+<div class="ng-scope" id="page-content" style="padding-top: 0px;">
+
+    <div class="row">
+        <div class="col-lg-4" style="padding-right: 2px; padding-left: 2px;">
+            <!--User table-->
+            <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+            <div class="panel">
+                <div class="panel-heading">
+                    <div class="panel-control" style="padding:0 15px;">
+                        <button data-toggle="panel-overlay" data-target="#demo-panel-ref"
+                                class="demo-panel-ref-btn btn btn-default" ng-click="ty.query()">
+                            <i class="fa fa-rotate-right fa-fw"></i> Refresh
+                        </button>
+                    </div>
+                    <h3 class="panel-title">体育</h3>
+                </div>
+
+                <div class="panel-body">
+                    <div class="pad-btm form-inline">
+                        <div class="row">
+                            <div class="col-sm-7 table-toolbar-left">
+                                <div class="panel-control">
+                                    <button ng-click="ty.changeOrder('time')"
+                                            ng-class="{true:'active'}[ty.order == 'time']"
+                                            class="btn btn-default btn-labeled fa fa-long-arrow-down btn-active-primary active">
+                                        时间
+                                    </button>
+                                    <button ng-click="ty.changeOrder('zn')"
+                                            ng-class="{true:'active'}[ty.order == 'zn']"
+                                            class="btn btn-default btn-labeled fa fa-long-arrow-down btn-active-primary">
+                                        智能
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="col-sm-5 table-toolbar-right">
+                                <div class="searchbox">
+                                    <div class="input-group custom-search-form">
+                                        <input type="text" ng-model="ty.title"
+                                               class="form-control ng-pristine ng-untouched ng-valid"
+                                               style="border-color:#54abd9"
+                                               placeholder="输入查询">
+                  <span class="input-group-btn">
+                    <button class="text-muted" type="button" ng-click="ty.query()"><i class="fa fa-search"></i></button>
+                  </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <div class="col-lg-12 ng-scope" ng-repeat="doc in ty.docs track by $index">
+                            <div class="panel media pad-all" style="">
+                                <div class="row">
+                                    <div class="col-lg-10">
+
+                                        <div class="media-body">
+                                            <p class="text-bold mar-no text-thin ng-binding">
+                                                {{doc.title}}
+                                            </p>
+                                            </p>
+
+                                            <p>
+                                                <span class="ng-binding">
+                                                    <a ng-href="{{doc.url}}" target="_blank" class="btn-link">
+                                                        {{doc.content}}</a>
+                                                </span>
+                                            </p>
+
+                                            <p>
+                                                <span class="label label-success"
+                                                      style="margin-right: 5px;margin-bottom:2px;display: inline-block"
+                                                      ng-repeat="keyword in doc.keywords">{{keyword}}</span>
+                                            </p>
+
+                                            <p>
+                                                <span>{{doc.source}}</span>
+                                                <span class="ng-binding pull-right">{{doc.updated_at}}</span>
+                                            </p>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <a data-container="body" data-original-title="收藏" data-toggle="tooltip"
+                                           class="btn btn-xs btn-default add-tooltip" ng-click="add(doc.id)"><i
+                                                class="fa fa-plus"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <bgf-pagination url='ty.docs_url' url-params='ty.docs_params' collection='ty.docs'
+                                        per-page="5" auto-presets="false" link-group-size="1"></bgf-pagination>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4" style="padding-right: 2px; padding-left: 2px;">
+            <!--User table-->
+            <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+            <div class="panel">
+                <div class="panel-heading">
+                    <div class="panel-control" snpyle="padding:0 15px">
+                        <button data-toggle="panel-overlay" data-target="#demo-panel-ref"
+                                class="demo-panel-ref-btn btn btn-default" ng-click="npy.query()">
+                            <i class="fa fa-rotate-right fa-fw"></i> Refresh
+                        </button>
+                    </div>
+                    <h3 class="panel-title">女朋友</h3>
+                </div>
+
+                <div class="panel-body">
+                    <div class="pad-btm form-inline">
+                        <div class="row">
+                            <div class="col-sm-7 table-toolbar-left">
+                                <div class="panel-control">
+                                    <button ng-click="npy.changeOrder('time')"
+                                            ng-class="{true:'active'}[npy.order == 'time']"
+                                            class="btn btn-default btn-labeled fa fa-long-arrow-down btn-active-primary active">
+                                        时间
+                                    </button>
+                                    <button ng-click="npy.changeOrder('zn')"
+                                            ng-class="{true:'active'}[npy.order == 'zn']"
+                                            class="btn btn-default btn-labeled fa fa-long-arrow-down btn-active-primary">
+                                        智能
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="col-sm-5 table-toolbar-right">
+                                <div class="searchbox">
+                                    <div class="input-group custom-search-form">
+                                        <input npype="text" ng-model="npy.title"
+                                               class="form-control ng-pristine ng-untouched ng-valid"
+                                               snpyle="border-color:#54abd9"
+                                               placeholder="输入查询">
+                  <span class="input-group-btn">
+                    <button class="text-muted" npype="button" ng-click="npy.query()"><i class="fa fa-search"></i>
+                    </button>
+                  </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <div class="col-lg-12 ng-scope" ng-repeat="doc in npy.docs">
+                            <div class="panel media pad-all" snpyle="">
+                                <div class="row">
+                                    <div class="col-lg-10">
+
+                                        <div class="media-body">
+                                            <div class="media-body">
+                                                <p class="text-bold mar-no text-thin ng-binding">
+                                                    {{doc.title}}
+                                                </p>
+                                                </p>
+
+                                                <p>
+                                                <span class="ng-binding">
+                                                    <a ng-href="{{doc.url}}" target="_blank" class="btn-link">
+                                                        {{doc.content}}</a>
+                                                </span>
+                                                </p>
+
+                                                <p>
+                                                <span class="label label-success"
+                                                      style="margin-right: 5px;margin-bottom:2px;display: inline-block"
+                                                      ng-repeat="keyword in doc.keywords">{{keyword}}</span>
+                                                </p>
+
+                                                <p>
+                                                    <span>{{doc.source}}</span>
+                                                    <span class="ng-binding pull-right">{{doc.updated_at}}</span>
+                                                </p>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <a data-container="body" data-original-title="选择" data-toggle="tooltip"
+                                           class="btn btn-xs btn-default add-tooltip" ng-click="npy.add(doc)"><i
+                                                class="fa fa-pencil"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <bgf-pagination url='npy.docs_url' url-params='npy.docs_params' collection='npy.docs'
+                                        per-page="5" auto-presets="false" link-group-size="1"></bgf-pagination>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4" style="padding-right: 2px; padding-left: 2px;">
+            <!--User table-->
+            <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+            <div class="panel">
+                <div class="panel-heading">
+                    <div class="panel-control" smyle="padding:0 15px">
+                        <button data-toggle="panel-overlay" data-target="#demo-panel-ref"
+                                class="demo-panel-ref-btn btn btn-default" ng-click="my.query()">
+                            <i class="fa fa-rotate-right fa-fw"></i> Refresh
+                        </button>
+                    </div>
+                    <h3 class="panel-title">我的</h3>
+                </div>
+
+                <div class="panel-body">
+                    <div class="pad-btm form-inline">
+                        <div class="row">
+                            <div class="col-sm-4 table-toolbar-left">
+                                <div class="panel-control">
+                                    <button ng-click="my.changeOrder('time')"
+                                            ng-class="{true:'active'}[my.order == 'time']"
+                                            class="btn btn-default btn-labeled fa fa-long-arrow-down btn-active-primary active">
+                                        时间
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="col-sm-8 table-toolbar-right">
+                                <div class="searchbox">
+                                    <div class="input-group custom-search-form">
+                                        <input mype="text" ng-model="my.title"
+                                               class="form-control ng-pristine ng-untouched ng-valid"
+                                               smyle="border-color:#54abd9"
+                                               placeholder="输入查询">
+                  <span class="input-group-btn">
+                    <button class="text-muted" mype="button" ng-click="my.query()"><i class="fa fa-search"></i></button>
+                  </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <div class="col-lg-12 ng-scope" ng-repeat="doc in my.docs track by $index">
+                            <div class="panel media pad-all" smyle="">
+                                <div class="row">
+                                    <div class="col-lg-12">
+
+                                        <div class="media-body">
+                                            <div class="media-body">
+                                                <p class="text-bold mar-no text-thin ng-binding">
+                                                    {{doc.title}}
+                                                </p>
+                                                </p>
+
+                                                <p>
+                                                <span class="ng-binding">
+                                                    <a ng-href="{{doc.url}}" target="_blank" class="btn-link">
+                                                        {{doc.content}}</a>
+                                                </span>
+                                                </p>
+
+                                                <p>
+                                                <span class="label label-success"
+                                                      style="margin-right: 5px;margin-bottom:2px;display: inline-block"
+                                                      ng-repeat="keyword in doc.keywords">{{keyword}}</span>
+                                                </p>
+
+                                                <p>
+                                                    <span>{{doc.source}}</span>
+                                                    <span class="ng-binding pull-right">{{doc.updated_at}}</span>
+                                                </p>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <bgf-pagination url='my.docs_url' url-params='my.docs_params' collection='my.docs'
+                                        per-page="5" auto-presets="false" link-group-size="1"></bgf-pagination>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+</div>

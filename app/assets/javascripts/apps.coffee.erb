@@ -8,8 +8,13 @@ angular.module 'app', [
   'bgf.paginateAnything'
   'ui.bootstrap'
   'ng-rails-csrf'
+   'main'
 ]
 .config ['$urlRouterProvider'
   ($urlRouterProvider) ->
     $urlRouterProvider.otherwise("/")
+]
+.run ['$state'
+    ($state)->
+        $state.go('main')
 ]

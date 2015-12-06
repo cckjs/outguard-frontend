@@ -1,0 +1,15 @@
+<%= simple_form_for(@url_weight_rule) do |f| %>
+    <%= f.error_notification %>
+
+    <div class="form-inputs">
+      <%= f.input :url, label: 'URL' %>
+      <%= f.input :weight, label: '权重' %>
+      <%= f.input :source, label: '来源' %>
+      <%= f.input :channel, label: '频道' %>
+    </div>
+
+    <div class="form-actions">
+      <%= f.button :submit, value: '更新' %>
+      <%= link_to '回退', url_weight_rules_path, class: 'btn btn-default btn-active-purple active' %>
+    </div>
+<% end %>

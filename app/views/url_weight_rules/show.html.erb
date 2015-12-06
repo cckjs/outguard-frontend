@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Url:</strong>
+  <%= @url_weight_rule.url %>
+</p>
+
+<p>
+  <strong>权重:</strong>
+  <%= @url_weight_rule.weight %>
+</p>
+
+<p>
+  <strong>来源:</strong>
+  <%= @url_weight_rule.source %>
+</p>
+
+<p>
+  <strong>频道:</strong>
+  <%= @url_weight_rule.channel %>
+</p>
+
+<%= link_to '修改', edit_url_weight_rule_path(@url_weight_rule) %> |
+<%= link_to '回退', url_weight_rules_path, class: 'btn btn-default btn-active-purple active' %>

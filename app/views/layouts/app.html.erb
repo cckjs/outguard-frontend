@@ -1,8 +1,12 @@
-<style type="text/css">
-    #container p{
-        font-size: 10px !important;
-    }
-</style>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>WXOA</title>
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
 <div id="container" class="effect mainnav-sm">
 
   <!--NAVBAR-->
@@ -46,6 +50,7 @@
               <span class="pull-right">
                 <%= image_tag "av1.png", alt: "Profile Picture", class: "img-circle img-user media-object" %>
               </span>
+
               <div class="username hidden-xs">admin</div>
             </a>
 
@@ -81,7 +86,9 @@
       <div id="page-content">
         <div class="row">
           <div ncy-breadcrumb></div>
-          <div ui-view></div>
+          <div>
+            <%= yield %>
+          </div>
         </div>
       </div>
       <!--===================================================-->
@@ -135,7 +142,7 @@
 
                 <!--Menu list item-->
                 <li>
-                  <a ui-sref="main">
+                  <a href="/apps" data-no-turbolink>
                     <i class="fa fa-briefcase"></i>
                     <span class="menu-title">
                       <strong>新闻流</strong>
@@ -143,7 +150,7 @@
                   </a>
                 </li>
                 <li>
-                  <a href="/url_weight_rules" data-no-turbolink>
+                  <a href="/url_weight_rules">
                     <i class="fa fa-fire"></i>
                     <span class="menu-title">
                       <strong>采集源</strong>
@@ -462,12 +469,8 @@
 
   </div>
 
-
-  <!--===================================================-->
-  <!-- END FOOTER -->
-
-
   <!-- SCROLL TOP BUTTON -->
+
   <!--===================================================-->
   <button id="scroll-top" class="btn"><i class="fa fa-chevron-up"></i></button>
   <!--===================================================-->
@@ -476,3 +479,10 @@
 </div>
 
 </div>
+
+<%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+<script>
+    angular.bootstrap(document, ['app']);
+</script>
+</body>
+</html>
