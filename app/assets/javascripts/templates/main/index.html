@@ -99,7 +99,7 @@
             <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
             <div class="panel">
                 <div class="panel-heading">
-                    <div class="panel-control" snpyle="padding:0 15px">
+                    <div class="panel-control" style="padding:0 15px">
                         <button data-toggle="panel-overlay" data-target="#demo-panel-ref"
                                 class="demo-panel-ref-btn btn btn-default" ng-click="npy.query()">
                             <i class="fa fa-rotate-right fa-fw"></i> Refresh
@@ -111,29 +111,24 @@
                 <div class="panel-body">
                     <div class="pad-btm form-inline">
                         <div class="row">
-                            <div class="col-sm-7 table-toolbar-left">
+                            <div class="col-sm-4 table-toolbar-left">
                                 <div class="panel-control">
                                     <button ng-click="npy.changeOrder('time')"
                                             ng-class="{true:'active'}[npy.order == 'time']"
                                             class="btn btn-default btn-labeled fa fa-long-arrow-down btn-active-primary active">
                                         时间
                                     </button>
-                                    <button ng-click="npy.changeOrder('zn')"
-                                            ng-class="{true:'active'}[npy.order == 'zn']"
-                                            class="btn btn-default btn-labeled fa fa-long-arrow-down btn-active-primary">
-                                        智能
-                                    </button>
                                 </div>
                             </div>
-                            <div class="col-sm-5 table-toolbar-right">
+                            <div class="col-sm-8 table-toolbar-right">
                                 <div class="searchbox">
                                     <div class="input-group custom-search-form">
-                                        <input npype="text" ng-model="npy.title"
+                                        <input type="text" ng-model="npy.title"
                                                class="form-control ng-pristine ng-untouched ng-valid"
-                                               snpyle="border-color:#54abd9"
+                                               style="border-color:#54abd9"
                                                placeholder="输入查询">
                   <span class="input-group-btn">
-                    <button class="text-muted" npype="button" ng-click="npy.query()"><i class="fa fa-search"></i>
+                    <button class="text-muted" type="button" ng-click="npy.query()"><i class="fa fa-search"></i>
                     </button>
                   </span>
                                     </div>
@@ -143,9 +138,9 @@
                     </div>
                     <div class="table-responsive">
                         <div class="col-lg-12 ng-scope" ng-repeat="doc in npy.docs">
-                            <div class="panel media pad-all" snpyle="">
+                            <div class="panel media pad-all" style="">
                                 <div class="row">
-                                    <div class="col-lg-10">
+                                    <div class="col-lg-12">
 
                                         <div class="media-body">
                                             <div class="media-body">
@@ -175,11 +170,6 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-lg-2">
-                                        <a data-container="body" data-original-title="选择" data-toggle="tooltip"
-                                           class="btn btn-xs btn-default add-tooltip" ng-click="npy.add(doc)"><i
-                                                class="fa fa-pencil"></i></a>
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -194,7 +184,7 @@
             <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
             <div class="panel">
                 <div class="panel-heading">
-                    <div class="panel-control" smyle="padding:0 15px">
+                    <div class="panel-control" style="padding:0 15px">
                         <button data-toggle="panel-overlay" data-target="#demo-panel-ref"
                                 class="demo-panel-ref-btn btn btn-default" ng-click="my.query()">
                             <i class="fa fa-rotate-right fa-fw"></i> Refresh
@@ -218,12 +208,12 @@
                             <div class="col-sm-8 table-toolbar-right">
                                 <div class="searchbox">
                                     <div class="input-group custom-search-form">
-                                        <input mype="text" ng-model="my.title"
+                                        <input type="text" ng-model="my.title"
                                                class="form-control ng-pristine ng-untouched ng-valid"
-                                               smyle="border-color:#54abd9"
+                                               style="border-color:#54abd9"
                                                placeholder="输入查询">
                   <span class="input-group-btn">
-                    <button class="text-muted" mype="button" ng-click="my.query()"><i class="fa fa-search"></i></button>
+                    <button class="text-muted" type="button" ng-click="my.query()"><i class="fa fa-search"></i></button>
                   </span>
                                     </div>
                                 </div>
@@ -232,7 +222,7 @@
                     </div>
                     <div class="table-responsive">
                         <div class="col-lg-12 ng-scope" ng-repeat="doc in my.docs track by $index">
-                            <div class="panel media pad-all" smyle="">
+                            <div class="panel media pad-all" style="">
                                 <div class="row">
                                     <div class="col-lg-12">
 

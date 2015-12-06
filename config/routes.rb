@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   resources :apps do
     get 'docs', on: :collection
     get 'my_docs', on: :collection
+    get 'npy_docs', on: :collection
     get 'add_my_doc', on: :collection
   end
 

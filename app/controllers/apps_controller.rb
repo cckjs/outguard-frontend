@@ -1,5 +1,5 @@
 class AppsController < ApplicationController
-  paginated_action only: [:docs, :my_docs]
+  paginated_action only: [:docs, :my_docs, :npy_docs]
 
   def index
   end
@@ -34,6 +34,38 @@ class AppsController < ApplicationController
     respond_with page
   end
 
+  def npy_docs
+    @kp_page = 0 if @kp_per_page.nil?
+    @kp_per_page = 5 if @kp_per_page.nil?
+    @apps= query_npy(params['title'], (@kp_page-1) * @kp_per_page, @kp_per_page)
+    @res = Array.new
+
+    def @apps.total_count
+      self['numFound']
+    end
+
+    def @apps.current_page
+      self['start']/5 + 1
+    end
+
+    def @apps.length
+      self['docs'].length
+    end
+
+    @apps['docs'].each do |map|
+      tmp = Hash.new
+      tmp['url'] = map['url']
+      tmp['title'] = map['title']
+      tmp['content'] = map['content'].strip.truncate(100)
+      tmp['source'] = query_source(map['url'])
+      tmp['updated_at'] = DateTime.parse(map['tstamp']).strftime('%Y-%m-%d %H:%M:%S').try(:sub, '2015-', '')
+      @res.append tmp
+      begin
+      rescue
+      end
+    end
+    respond_with @res
+  end
 end
 
 
@@ -67,4 +99,11 @@ end
 def query_keywords(page_id)
   keyword = PageKeyword.where(:page_id => page_id).first
   keyword.nil? ? '' : keyword.keywords.split(',')
+end
+
+def query_npy(title, start, rows)
+  url = "http://139.129.99.173:8080/solr/collection1/select?q=女朋友,女友,女生,#{title}&start=#{start}&rows=#{rows}&wt=json&indent=true"
+  res = RestClient.get URI.encode(url)
+  json = JSON.parse res
+  json['response']
 end

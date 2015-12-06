@@ -28,6 +28,16 @@ angular.module 'main.controller', []
 
     $scope.ty.query()
 
+    $scope.npy = {}
+    $scope.npy.query = ()->
+      $scope.now = new Date().getTime()
+      $scope.npy.docs_url = '/apps/npy_docs.json'
+      $scope.npy.docs_params =
+        title: $scope.npy.title
+        now: $scope.now
+
+    $scope.npy.query()
+
     $scope.my = {};
     $scope.my.docs = [];
     $scope.add = (docId)->
