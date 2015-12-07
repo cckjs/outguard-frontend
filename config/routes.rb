@@ -14,6 +14,7 @@ Rails.application.routes.draw do
     get 'my_docs', on: :collection
     get 'npy_docs', on: :collection
     get 'add_my_doc', on: :collection
+    get 'remove_my_doc', on: :collection
   end
 
   root to: "apps#index"

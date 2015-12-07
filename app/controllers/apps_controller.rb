@@ -6,7 +6,7 @@ class AppsController < ApplicationController
 
   def docs
     query = WebPageMetaData.joins(:page_ranks).joins(:page_keywords)
-    query = query.where('json like ?', "%#{params[:title]}%") if (params[:title])
+    query = query.where('json like ?', "%#{params[:title]}%") if params[:title] && !params[:title].empty?
     if (params[:order] && params[:order] == 'time')
       query = query.order('updated_at desc')
     end
@@ -29,8 +29,15 @@ class AppsController < ApplicationController
 
   def add_my_doc
     page_id = params[:page_id]
-    page = MyPage.new(page_id: page_id)
+    page = MyPage.find_or_initialize_by page_id: page_id
     page.save
+    respond_with page
+  end
+
+  def remove_my_doc
+    page_id = params[:page_id]
+    page = MyPage.find_by page_id: page_id
+    page.destroy if page
     respond_with page
   end
 

@@ -51,5 +51,9 @@ angular.module 'main.controller', []
         title: $scope.my.title
         now: $scope.now
     $scope.my.query()
+
+    $scope.my.remove_doc = (docId)->
+      $http.get("/apps/remove_my_doc?page_id=" + docId).then ()->
+        $scope.my.query()
 ]
 
