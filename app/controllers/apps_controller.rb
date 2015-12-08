@@ -67,7 +67,7 @@ class AppsController < ApplicationController
       tmp['source'] = query_source(map['url'])
       tmp['updated_at'] = DateTime.parse(map['tstamp']).strftime('%Y-%m-%d %H:%M:%S').try(:sub, '2015-', '')
       tmp['id'], tmp['keywords'] = query_keywords_url map['url']
-      @res.append tmp
+      @res.append tmp unless has_sensitive_words tmp['keywords']
       begin
       rescue
       end
@@ -91,7 +91,7 @@ def query_docs(docs)
     tmp['content'] = json['body-news-content'].strip.truncate(100)
     tmp['source'] = query_source(tmp['url'])
     tmp['keywords'] = query_keywords(map['id'])
-    @res.append tmp
+    @res.append tmp unless has_sensitive_words tmp['keywords']
     begin
     rescue
     end
@@ -121,4 +121,13 @@ def query_npy(title, start, rows)
   res = RestClient.get URI.encode(url)
   json = JSON.parse res
   json['response']
+end
+
+def has_sensitive_words(keywords)
+  return false unless keywords
+  filter_words = FilterWord.all
+  filter_words.each do |words|
+    return true if keywords.include? words.word
+  end
+  return false
 end
