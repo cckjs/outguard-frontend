@@ -1,3 +1,13 @@
+# == Schema Information
+#
+# Table name: webpage_metadata_parser
+#
+#  id         :integer          not null, primary key
+#  url        :string(600)
+#  json       :text(4294967295)
+#  updated_at :string(30)
+#
+
 class WebPageMetaData < ActiveRecord::Base
   self.table_name = "webpage_metadata_parser"
 

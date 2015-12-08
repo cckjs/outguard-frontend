@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<table class="table table-hover table-vcenter">
+  <thead>
+  <tr>
+    <th><%=h FilterWord, :word %></th>
+    <th>操作</th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @filter_words.each do |word| %>
+      <tr>
+        <td><%= word.word %></td>
+        <td>
+          <%= link_to '修改', edit_filter_word_path(word, ok_url: request.fullpath) %>
+          <%= link_to '删除', filter_word_path(word, ok_url: request.fullpath), method: :delete, data: {confirm: 'Are you sure?'} %>
+        </td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to '新增', new_filter_word_path, class: 'btn btn-default btn-active-purple active' %>
+

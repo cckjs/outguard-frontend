@@ -66,6 +66,7 @@ class AppsController < ApplicationController
       tmp['content'] = map['content'].strip.truncate(100)
       tmp['source'] = query_source(map['url'])
       tmp['updated_at'] = DateTime.parse(map['tstamp']).strftime('%Y-%m-%d %H:%M:%S').try(:sub, '2015-', '')
+      tmp['id'], tmp['keywords'] = query_keywords_url map['url']
       @res.append tmp
       begin
       rescue
@@ -106,6 +107,13 @@ end
 def query_keywords(page_id)
   keyword = PageKeyword.where(:page_id => page_id).first
   keyword.nil? ? '' : keyword.keywords.split(',')
+end
+
+def query_keywords_url(url)
+  page = WebPageMetaData.find_by(url: url)
+  return nil unless page
+  keyword = page.page_keywords.first
+  [page.id, keyword.nil? ? '' : keyword.keywords.split(',')]
 end
 
 def query_npy(title, start, rows)

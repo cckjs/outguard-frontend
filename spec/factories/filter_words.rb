@@ -1,16 +1,16 @@
 # == Schema Information
 #
-# Table name: my_pages
+# Table name: filter_words
 #
 #  id         :integer          not null, primary key
-#  page_id    :integer
+#  word       :string(255)
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
 
 FactoryGirl.define do
-  factory :my_page do
-    page_id 1
+  factory :filter_word do
+    
   end
 
 end

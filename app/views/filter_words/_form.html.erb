@@ -1,0 +1,12 @@
+<%= simple_form_for(@filter_word) do |f| %>
+    <%= f.error_notification %>
+
+    <div class="form-inputs">
+      <%= f.input :word, label: '名称' %>
+    </div>
+
+    <div class="form-actions">
+      <%= f.button :submit, value: '更新' %>
+      <%= link_to '回退', filter_words_path, class: 'btn btn-default btn-active-purple active' %>
+    </div>
+<% end %>

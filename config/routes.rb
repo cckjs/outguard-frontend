@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
 
   resources :url_weight_rules
+  resources :filter_words
   resources :wx_documents
 
   resources :bd_documents do
