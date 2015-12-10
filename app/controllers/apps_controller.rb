@@ -6,23 +6,23 @@ class AppsController < ApplicationController
 
   def docs
     query = WebPageMetaData.joins(:page_ranks).joins(:page_keywords)
-    query = query.where('json like ?', "%#{params[:title]}%") if params[:title] && !params[:title].empty?
-    if (params[:order] && params[:order] == 'time')
-      query = query.order('updated_at desc')
+    query = query.where 'title like ?', "%#{params[:title]}%" if params[:title] && !params[:title].empty?
+    if  params[:order] && params[:order] == 'time'
+      query = query.order('publish_time desc')
     end
-    if (params[:order] && params[:order] == 'zn')
-      query = query.order('page_rank.weight desc')
+    if params[:order] && params[:order] == 'zn'
+      query = query.order 'page_rank.weight desc'
     end
     query = query.includes(:page_keywords)
     @apps= query.page(@kp_page).per(@kp_per_page)
-    respond_with query_docs(@apps)
+    respond_with query_docs @apps
   end
 
   def my_docs
-    query = WebPageMetaData.joins(:my_pages)
+    query = WebPageMetaData.joins(:my_pages).joins(:page_keywords)
     query = query.where('json like ?', "%#{params[:title]}%") if (params[:title])
     query = query.order('my_pages.created_at desc')
-
+    query = query.includes(:page_keywords)
     @apps= query.page(@kp_page).per(@kp_per_page)
     respond_with query_docs(@apps)
   end
@@ -79,22 +79,17 @@ end
 
 private
 def query_docs(docs)
-  @arrs = JSON.parse(docs.to_json({include: :page_keywords}))
   @res = Array.new
-  @arrs.each do |map|
+  docs.each do |doc|
     tmp = Hash.new
-    json = JSON.parse(map['json'])
-    tmp['id'] = map['id']
-    tmp['updated_at'] = map['updated_at'].try(:sub, '2015-', '')
-    tmp['url'] = map['url']
-    tmp['title'] = json['title']
-    tmp['content'] = json['body-news-content'].strip.truncate(100)
-    tmp['source'] = query_source(tmp['url'])
-    tmp['keywords'] = query_keywords(map['id'])
+    tmp['id'] = doc.id
+    tmp['updated_at'] = doc.publish_time.empty? ? '' :  DateTime.parse(doc.publish_time).strftime('%Y-%m-%d %H:%M:%S')
+    tmp['url'] = doc.url
+    tmp['title'] = doc.title
+    tmp['content'] = doc.main_body.strip.truncate(100)
+    tmp['source'] = query_source(doc.url)
+    tmp['keywords'] = doc.page_keywords.first.nil? ? '' : doc.page_keywords.first.keywords.split(',')
     @res.append tmp unless has_sensitive_words tmp['keywords']
-    begin
-    rescue
-    end
   end
   @res
 end
@@ -102,11 +97,6 @@ end
 def query_source(url)
   rule = UrlWeightRule.where("'"+url+ "'"+" LIKE concat('"+'%%'+"',url,'"+'%%'+"')", "").try(:first)
   rule.nil? ? '' : rule.source
-end
-
-def query_keywords(page_id)
-  keyword = PageKeyword.where(:page_id => page_id).first
-  keyword.nil? ? '' : keyword.keywords.split(',')
 end
 
 def query_keywords_url(url)
