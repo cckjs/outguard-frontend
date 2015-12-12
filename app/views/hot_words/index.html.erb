@@ -1,15 +1,47 @@
-<p id="notice"><%= notice %></p>
+<div class="col-lg">
+  <div class="tab-base">
+    <ul class="nav nav-tabs">
+      <li class="<%= 'active' if Time.now.strftime('%Y%m%d') == @search_date %>">
+        <a href="/hot_words?data_date=<%= Time.now.strftime('%Y%m%d') %>" >
+          <%= Time.now.strftime("%Y-%m-%d") %>
+        </a>
+      </li>
+      <li class="<%= 'active' if (Time.now - 1.days).strftime('%Y%m%d') == @search_date %>">
+        <a href="/hot_words?data_date=<%= (Time.now - 1.days).strftime('%Y%m%d') %>" >
+          <%= (Time.now - 1.days).strftime("%Y-%m-%d") %>
+        </a>
+      </li>
+      <li class="<%= 'active' if (Time.now - 2.days).strftime('%Y%m%d') == @search_date %>">
+        <a href="/hot_words?data_date=<%= (Time.now - 2.days).strftime('%Y%m%d') %>" >
+          <%= (Time.now - 2.days).strftime("%Y-%m-%d") %>
+        </a>
+      </li>
+      <li class="<%= 'active' if (Time.now - 3.days).strftime('%Y%m%d') == @search_date %>">
+        <a href="/hot_words?data_date=<%= (Time.now - 3.days).strftime('%Y%m%d') %>" >
+          <%= (Time.now - 3.days).strftime("%Y-%m-%d") %>
+        </a>
+      </li>
+      <li class="<%= 'active' if (Time.now - 4.days).strftime('%Y%m%d') == @search_date %>">
+        <a href="/hot_words?data_date=<%= (Time.now - 4.days).strftime('%Y%m%d') %>" >
+          <%= (Time.now - 4.days).strftime("%Y-%m-%d") %>
+        </a>
+      </li>
+    </ul>
+    <div class="tab-content">
+      <div class="table-responsive">
+        <table class="table table-striped table-hover">
+          <tbody>
+        <% @hot_words.in_groups_of(5) do |group| %>          
+            <tr>
+          <% group.each do |word| %>
+            <td><%= word.nil? ? '' : link_to(word.content, word.url, target: '_blank', class: '')  %></td>
+          <%  end  %>
+            </tr>
+        <%  end  %>
+          </tbody>
+        </table>
 
-<table class="table table-hover table-vcenter">
-  <tbody>
-      <tr>
-  <% @hot_words.each.with_index do |word, index| %>
-        <td><%= link_to word.content, word.url %></td>
-    <% if (index +1) % 5 ==0 %>
-        </tr>
-        <tr>
-    <% end %>
-  <% end %>
-    </tr>
-  </tbody>
-</table>
+      </div>
+    </div>
+  </div>
+</div>
