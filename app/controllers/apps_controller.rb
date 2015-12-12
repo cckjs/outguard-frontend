@@ -5,7 +5,7 @@ class AppsController < ApplicationController
   end
 
   def docs
-    query = WebPageMetaData.joins(:page_ranks).joins(:page_keywords)
+    query = WebPageMetaData.joins(:page_ranks).joins(:page_keywords).joins("INNER JOIN url_weight_rule ON url_weight_rule.channel = '体育' AND replace((replace((SUBSTRING_INDEX(SUBSTRING_INDEX(REPLACE( url_weight_rule.url , '//', ''), '/', 1), '*', -2)), 'http:','')),'https:','')=replace((replace((SUBSTRING_INDEX(SUBSTRING_INDEX(REPLACE( webpage_metadata_parser.url , '//', ''), '/', 1), '*', -2)), 'http:','')),'https:','') ")
     query = query.where 'title like ?', "%#{params[:title]}%" if params[:title] && !params[:title].empty?
     if  params[:order] && params[:order] == 'time'
       query = query.order('publish_time desc')
@@ -67,7 +67,7 @@ class AppsController < ApplicationController
       tmp['source'] = query_source(map['url'])
       tmp['updated_at'] = DateTime.parse(map['tstamp']).strftime('%Y-%m-%d %H:%M:%S').try(:sub, '2015-', '')
       tmp['id'], tmp['keywords'] = query_keywords_url map['url']
-      @res.append tmp unless has_sensitive_words tmp['keywords']
+      @res.append tmp
       begin
       rescue
       end
@@ -88,14 +88,16 @@ def query_docs(docs)
     tmp['title'] = doc.title
     tmp['content'] = doc.main_body.strip.truncate(100)
     tmp['source'] = query_source(doc.url)
-    tmp['keywords'] = doc.page_keywords.first.nil? ? '' : doc.page_keywords.first.keywords.split(',')
-    @res.append tmp unless has_sensitive_words tmp['keywords']
+    tmp['keywords'] = doc.page_keywords.first.nil? ? '' : fitler_words(doc.page_keywords.first.keywords.split(','))
+    @res.append tmp
   end
   @res
 end
 
 def query_source(url)
-  rule = UrlWeightRule.where("'"+url+ "'"+" LIKE concat('"+'%%'+"',url,'"+'%%'+"')", "").try(:first)
+  return '' if url.empty?
+  # rule = UrlWeightRule.where("'"+url+ "'"+" LIKE concat('"+'%%'+"',url,'"+'%%'+"')", "").try(:first)
+  rule = UrlWeightRule.where(" url like '%#{URI.parse(url).hostname}%'").try(:first)
   rule.nil? ? '' : rule.source
 end
 
@@ -103,7 +105,7 @@ def query_keywords_url(url)
   page = WebPageMetaData.find_by(url: url)
   return nil unless page
   keyword = page.page_keywords.first
-  [page.id, keyword.nil? ? '' : keyword.keywords.split(',')]
+  [page.id, keyword.nil? ? '' : fitler_words(keyword.keywords.split(','))]
 end
 
 def query_npy(title, start, rows)
@@ -113,11 +115,11 @@ def query_npy(title, start, rows)
   json['response']
 end
 
-def has_sensitive_words(keywords)
-  return false unless keywords
+def fitler_words(keywords)
+  return '' unless keywords
   filter_words = FilterWord.all
   filter_words.each do |words|
-    return true if keywords.include? words.word
+    keywords.delete words.word if keywords.include? words.word
   end
-  return false
+  return keywords
 end
