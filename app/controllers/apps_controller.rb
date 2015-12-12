@@ -5,7 +5,7 @@ class AppsController < ApplicationController
   end
 
   def docs
-    query = WebPageMetaData.joins(:page_ranks).joins(:page_keywords).joins("INNER JOIN url_weight_rule ON url_weight_rule.channel = '体育' AND replace((replace((SUBSTRING_INDEX(SUBSTRING_INDEX(REPLACE( url_weight_rule.url , '//', ''), '/', 1), '*', -2)), 'http:','')),'https:','')=replace((replace((SUBSTRING_INDEX(SUBSTRING_INDEX(REPLACE( webpage_metadata_parser.url , '//', ''), '/', 1), '*', -2)), 'http:','')),'https:','') ")
+    query = WebPageMetaData.joins("LEFT JOIN page_rank ON page_rank.page_id = webpage_metadata_parser.id").joins("LEFT JOIN page_keywords ON page_keywords.page_id = webpage_metadata_parser.id").joins("INNER JOIN url_weight_rule ON url_weight_rule.channel = '体育' AND replace((replace((SUBSTRING_INDEX(SUBSTRING_INDEX(REPLACE( url_weight_rule.url , '//', ''), '/', 1), '*', -2)), 'http:','')),'https:','')=replace((replace((SUBSTRING_INDEX(SUBSTRING_INDEX(REPLACE( webpage_metadata_parser.url , '//', ''), '/', 1), '*', -2)), 'http:','')),'https:','') ")
     query = query.where 'title like ?', "%#{params[:title]}%" if params[:title] && !params[:title].empty?
     if  params[:order] && params[:order] == 'time'
       query = query.order('publish_time desc')
