@@ -5,7 +5,7 @@ class AppsController < ApplicationController
   end
 
   def docs
-    query = WebPageMetaData.joins("LEFT JOIN page_rank ON page_rank.page_id = webpage_metadata_parser.id").joins("LEFT JOIN page_keywords ON page_keywords.page_id = webpage_metadata_parser.id").joins("INNER JOIN url_weight_rule ON url_weight_rule.channel = '体育' AND url_weight_rule.domain=replace((replace((SUBSTRING_INDEX(SUBSTRING_INDEX(REPLACE( webpage_metadata_parser.url , '//', ''), '/', 1), '*', -2)), 'http:','')),'https:','') ")
+    query = WebPageMetaData.where("webpage_metadata_parser.id in (select min(id) from webpage_metadata_parser group by webpage_metadata_parser.title)").joins("LEFT JOIN page_rank ON page_rank.page_id = webpage_metadata_parser.id").joins("LEFT JOIN page_keywords ON page_keywords.page_id = webpage_metadata_parser.id").joins("INNER JOIN url_weight_rule ON url_weight_rule.channel = '体育' AND url_weight_rule.domain=replace((replace((SUBSTRING_INDEX(SUBSTRING_INDEX(REPLACE( webpage_metadata_parser.url , '//', ''), '/', 1), '*', -2)), 'http:','')),'https:','') ")
     query = query.where 'title like ?', "%#{params[:title]}%" if params[:title] && !params[:title].empty?
     if  params[:order] && params[:order] == 'time'
       query = query.order('publish_time desc')
@@ -109,7 +109,7 @@ def query_keywords_url(url)
 end
 
 def query_npy(title, start, rows)
-  url = "http://139.129.99.173:8080/solr/collection1/select?q=女朋友,女友,#{title}&start=#{start}&rows=#{rows}&wt=json&sort=tstamp+desc&indent=true"
+  url = "http://139.129.99.173:8080/solr/collection1/select?q=女朋友,女友,前女友,#{title}&start=#{start}&rows=#{rows}&wt=json&sort=tstamp+desc&indent=true"
   res = RestClient.get URI.encode(url)
   json = JSON.parse res
   json['response']
