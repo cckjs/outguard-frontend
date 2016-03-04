@@ -109,7 +109,8 @@ def query_keywords_url(url)
 end
 
 def query_npy(title, start, rows)
-  url = "http://139.129.99.173:8080/solr/collection1/select?q=女朋友,女友,#{title}&start=#{start}&rows=#{rows}&wt=json&sort=tstamp+desc&indent=true"
+  url = "http://139.129.194.51:8983/solr/collection1/select?q=女朋友,女友,#{title}&start=#{start}&rows=#{rows}&wt=json&sort=tstamp+desc&indent=true"
+  print url
   res = RestClient.get URI.encode(url)
   json = JSON.parse res
   json['response']
