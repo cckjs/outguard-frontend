@@ -5,13 +5,11 @@ class AppsController < ApplicationController
   end
 
   def docs
-    query = WebPageMetaData.where("webpage_metadata_parser.id in (select min(id) from webpage_metadata_parser group by webpage_metadata_parser.title)").joins("LEFT JOIN page_rank ON page_rank.page_id = webpage_metadata_parser.id").joins("LEFT JOIN page_keywords ON page_keywords.page_id = webpage_metadata_parser.id").joins("INNER JOIN url_weight_rule ON url_weight_rule.channel = '体育' AND url_weight_rule.domain=replace((replace((SUBSTRING_INDEX(SUBSTRING_INDEX(REPLACE( webpage_metadata_parser.url , '//', ''), '/', 1), '*', -2)), 'http:','')),'https:','') ")
+    query = WebPageMetaData.where("webpage_metadata_parser.id in (select min(id) from webpage_metadata_parser group by webpage_metadata_parser.title)")
+                .joins("INNER JOIN url_weight_rule ON url_weight_rule.channel = '体育' AND url_weight_rule.domain=replace((replace((SUBSTRING_INDEX(SUBSTRING_INDEX(REPLACE( webpage_metadata_parser.url , '//', ''), '/', 1), '*', -2)), 'http:','')),'https:','') ")
     query = query.where 'title like ?', "%#{params[:title]}%" if params[:title] && !params[:title].empty?
     if  params[:order] && params[:order] == 'time'
       query = query.order('publish_time desc')
-    end
-    if params[:order] && params[:order] == 'zn'
-      query = query.order 'page_rank.weight desc, publish_time desc'
     end
     query = query.includes(:page_keywords)
     @apps= query.page(@kp_page).per(@kp_per_page)
@@ -19,7 +17,7 @@ class AppsController < ApplicationController
   end
 
   def my_docs
-    query = WebPageMetaData.joins(:my_pages).joins(:page_keywords)
+    query = WebPageMetaData.joins(:my_pages)
     query = query.where('json like ?', "%#{params[:title]}%") if (params[:title])
     query = query.order('my_pages.created_at desc')
     query = query.includes(:page_keywords)
